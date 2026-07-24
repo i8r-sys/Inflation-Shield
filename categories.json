@@ -1,0 +1,47 @@
+{
+  "official_cpi": 8.5,
+  "categories": [
+    {
+      "id": "bus",
+      "name": "Автобус / Общественный транспорт",
+      "inflation_rate": 7.5,
+      "default_amount": 2000
+    },
+    {
+      "id": "food",
+      "name": "Еда и продукты",
+      "inflation_rate": 11.2,
+      "default_amount": 25000
+    },
+    {
+      "id": "entertainment",
+      "name": "Развлечения",
+      "inflation_rate": 13.0,
+      "default_amount": 10000
+    },
+    {
+      "id": "utilities",
+      "name": "ЖКХ",
+      "inflation_rate": 9.8,
+      "default_amount": 6000
+    },
+    {
+      "id": "rent",
+      "name": "Аренда жилья",
+      "inflation_rate": 12.5,
+      "default_amount": 35000
+    },
+    {
+      "id": "home_internet",
+      "name": "Домашний интернет",
+      "inflation_rate": 6.0,
+      "default_amount": 600
+    },
+    {
+      "id": "mobile_internet",
+      "name": "Мобильный интернет",
+      "inflation_rate": 8.0,
+      "default_amount": 500
+    }
+  ]
+}
