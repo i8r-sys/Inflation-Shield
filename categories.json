@@ -1,47 +1,154 @@
 {
-  "official_cpi": 8.5,
-  "categories": [
-    {
-      "id": "bus",
-      "name": "Автобус / Общественный транспорт",
-      "inflation_rate": 7.5,
-      "default_amount": 0
+  "countries": {
+    "USA": {
+      "name": "США",
+      "currency_code": "USD",
+      "currency_symbol": "$",
+      "official_cpi": 2.7,
+      "categories": [
+        {
+          "id": "bus",
+          "name": "Общественный транспорт",
+          "inflation_rate": 3.1,
+          "default_amount": 0
+        },
+        {
+          "id": "food",
+          "name": "Еда и продукты",
+          "inflation_rate": 2.2,
+          "default_amount": 0
+        },
+        {
+          "id": "entertainment",
+          "name": "Развлечения",
+          "inflation_rate": 4.0,
+          "default_amount": 0
+        },
+        {
+          "id": "utilities",
+          "name": "Коммунальные услуги (ЖКХ)",
+          "inflation_rate": 3.8,
+          "default_amount": 0
+        },
+        {
+          "id": "rent",
+          "name": "Аренда жилья",
+          "inflation_rate": 4.5,
+          "default_amount": 0
+        },
+        {
+          "id": "home_internet",
+          "name": "Домашний интернет",
+          "inflation_rate": 1.5,
+          "default_amount": 0
+        },
+        {
+          "id": "mobile_internet",
+          "name": "Мобильный интернет",
+          "inflation_rate": 1.2,
+          "default_amount": 0
+        }
+      ]
     },
-    {
-      "id": "food",
-      "name": "Еда и продукты",
-      "inflation_rate": 11.2,
-      "default_amount": 0
+    "DEU": {
+      "name": "Германия",
+      "currency_code": "EUR",
+      "currency_symbol": "€",
+      "official_cpi": 2.2,
+      "categories": [
+        {
+          "id": "bus",
+          "name": "Общественный транспорт",
+          "inflation_rate": 2.5,
+          "default_amount": 0
+        },
+        {
+          "id": "food",
+          "name": "Еда и продукты",
+          "inflation_rate": 1.8,
+          "default_amount": 0
+        },
+        {
+          "id": "entertainment",
+          "name": "Развлечения",
+          "inflation_rate": 3.5,
+          "default_amount": 0
+        },
+        {
+          "id": "utilities",
+          "name": "Коммунальные услуги (ЖКХ)",
+          "inflation_rate": -1.2,
+          "default_amount": 0
+        },
+        {
+          "id": "rent",
+          "name": "Аренда жилья",
+          "inflation_rate": 3.0,
+          "default_amount": 0
+        },
+        {
+          "id": "home_internet",
+          "name": "Домашний интернет",
+          "inflation_rate": 1.0,
+          "default_amount": 0
+        },
+        {
+          "id": "mobile_internet",
+          "name": "Мобильный интернет",
+          "inflation_rate": 0.8,
+          "default_amount": 0
+        }
+      ]
     },
-    {
-      "id": "entertainment",
-      "name": "Развлечения",
-      "inflation_rate": 13.0,
-      "default_amount": 0
-    },
-    {
-      "id": "utilities",
-      "name": "ЖКХ",
-      "inflation_rate": 9.8,
-      "default_amount": 0
-    },
-    {
-      "id": "rent",
-      "name": "Аренда жилья",
-      "inflation_rate": 12.5,
-      "default_amount": 0
-    },
-    {
-      "id": "home_internet",
-      "name": "Домашний интернет",
-      "inflation_rate": 6.0,
-      "default_amount": 0
-    },
-    {
-      "id": "mobile_internet",
-      "name": "Мобильный интернет",
-      "inflation_rate": 8.0,
-      "default_amount": 0
+    "JPN": {
+      "name": "Япония",
+      "currency_code": "JPY",
+      "currency_symbol": "¥",
+      "official_cpi": 2.8,
+      "categories": [
+        {
+          "id": "bus",
+          "name": "Общественный транспорт",
+          "inflation_rate": 1.1,
+          "default_amount": 0
+        },
+        {
+          "id": "food",
+          "name": "Еда и продукты",
+          "inflation_rate": 4.2,
+          "default_amount": 0
+        },
+        {
+          "id": "entertainment",
+          "name": "Развлечения",
+          "inflation_rate": 2.0,
+          "default_amount": 0
+        },
+        {
+          "id": "utilities",
+          "name": "Коммунальные услуги (ЖКХ)",
+          "inflation_rate": 5.1,
+          "default_amount": 0
+        },
+        {
+          "id": "rent",
+          "name": "Аренда жилья",
+          "inflation_rate": 0.5,
+          "default_amount": 0
+        },
+        {
+          "id": "home_internet",
+          "name": "Домашний интернет",
+          "inflation_rate": 0.3,
+          "default_amount": 0
+        },
+        {
+          "id": "mobile_internet",
+          "name": "Мобильный интернет",
+          "inflation_rate": 0.2,
+          "default_amount": 0
+        }
+      ]
     }
-  ]
+  }
 }
