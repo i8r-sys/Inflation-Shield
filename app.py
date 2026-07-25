@@ -15,18 +15,35 @@ st.write(
 )
 
 
-# Загрузка категорий из categories.json
-@st.cache_data
+# Загрузка данных из categories.json (без кэширования для динамических обновлений)
 def load_data():
     with open("categories.json", "r", encoding="utf-8") as f:
         return json.load(f)
 
 
 data = load_data()
-categories = data.get("categories", [])
-official_cpi = data.get("official_cpi", 8.5)
+countries = data.get("countries", {})
 
-st.sidebar.header("Ваши ежемесячные расходы (руб.)")
+# Переключатель страны в боковой панели
+st.sidebar.header("⚙️ Настройки")
+
+country_options = {
+    code: info["name"] for code, info in countries.items()
+}
+selected_country_code = st.sidebar.selectbox(
+    "Выберите страну:",
+    options=list(country_options.keys()),
+    format_func=lambda x: country_options[x],
+)
+
+# Данные по выбранной стране
+current_country = countries[selected_country_code]
+currency_symbol = current_country.get("currency_symbol", "$")
+official_cpi = float(current_country.get("official_cpi", 0.0))
+categories = current_country.get("categories", [])
+
+st.sidebar.markdown("---")
+st.sidebar.header(f"Ваши расходы ({currency_symbol})")
 
 user_expenses = {}
 total_current_monthly = 0.0
@@ -39,13 +56,16 @@ for cat in categories:
     default_val = float(cat["default_amount"])
     rate = float(cat["inflation_rate"])
 
+    # Динамический шаг зависит от валюты (для йены больше)
+    step_val = 1000.0 if currency_symbol == "¥" else 50.0
+
     # Поле ввода для пользователя
     amount = st.sidebar.number_input(
         f"{cat_name} (Инфляция ~{rate}%)",
         min_value=0.0,
         value=default_val,
-        step=500.0,
-        key=cat_id,
+        step=step_val,
+        key=f"{selected_country_code}_{cat_id}",
     )
 
     user_expenses[cat_id] = {
@@ -71,7 +91,9 @@ col1, col2, col3 = st.columns(3)
 with col1:
     st.metric(
         label="Текущие расходы в месяц",
-        value=f"{total_current_monthly:,.0f} ₽".replace(",", " "),
+        value=f"{total_current_monthly:,.0f} {currency_symbol}".replace(
+            ",", " "
+        ),
     )
 
 with col2:
@@ -97,7 +119,9 @@ future_expenses_official = []
 
 for y in years:
     # По персональной инфляции
-    p_val = total_current_monthly * ((1 + personal_inflation_rate / 100.0) ** y)
+    p_val = total_current_monthly * (
+        (1 + personal_inflation_rate / 100.0) ** y
+    )
     future_expenses_personal.append(p_val)
 
     # По официальной инфляции
@@ -131,7 +155,7 @@ fig.add_trace(
 
 fig.update_layout(
     xaxis_title="Временной горизонт",
-    yaxis_title="Расходы в месяц (руб.)",
+    yaxis_title=f"Расходы в месяц ({currency_symbol})",
     hovermode="x unified",
     margin=dict(l=20, r=20, t=30, b=20),
 )
@@ -149,7 +173,9 @@ for cat_id, info in user_expenses.items():
     breakdown_data.append(
         {
             "Категория": info["name"],
-            "Сумма (₽)": f"{info['amount']:,.0f}".replace(",", " "),
+            f"Сумма ({currency_symbol})": f"{info['amount']:,.0f}".replace(
+                ",", " "
+            ),
             "Доля в бюджете": f"{share:.1f}%",
             "Инфляция категории": f"{info['rate']}%",
         }
