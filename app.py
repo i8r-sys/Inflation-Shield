@@ -2,20 +2,97 @@ import json
 import plotly.graph_objects as go
 import streamlit as st
 
-# Настройка страницы
+# Page configuration
 st.set_page_config(
     page_title="Inflation Shield", page_icon="🛡️", layout="wide"
 )
 
-# Заголовок
-st.title("🛡️ Inflation Shield")
-st.subheader("Калькулятор персональной инфляции")
-st.write(
-    "Узнайте вашу личную инфляцию на основе ваших реальных ежедневных трат."
-)
+# Translations dictionary
+I18N = {
+    "en": {
+        "title": "🛡️ Inflation Shield",
+        "subtitle": "Personal Inflation Calculator",
+        "desc": "Calculate your personal inflation rate based on your actual daily expenses.",
+        "settings": "⚙️ Settings",
+        "select_country": "Select Country:",
+        "select_lang": "Select Language:",
+        "expenses_header": "Your Monthly Expenses",
+        "curr_expenses": "Current Monthly Expenses",
+        "official_cpi": "Official Inflation (CPI)",
+        "personal_cpi": "Personal Inflation",
+        "vs_official": "vs Official",
+        "chart_title": "📈 Expense Growth Forecast",
+        "your_rate": "With Personal Inflation",
+        "off_rate": "With Official Inflation",
+        "time_horizon": "Time Horizon",
+        "monthly_expenses": "Monthly Expenses",
+        "table_title": "📊 Expense Breakdown",
+        "col_category": "Category",
+        "col_amount": "Amount",
+        "col_share": "Share",
+        "col_rate": "Category Inflation",
+        "now": "Now",
+        "year": "year",
+        "years": "years",
+        "inflation": "Inflation",
+    },
+    "de": {
+        "title": "🛡️ Inflation Shield",
+        "subtitle": "Persönlicher Inflationsrechner",
+        "desc": "Berechnen Sie Ihre persönliche Inflationsrate basierend auf Ihren tatsächlichen Ausgaben.",
+        "settings": "⚙️ Einstellungen",
+        "select_country": "Land auswählen:",
+        "select_lang": "Sprache auswählen:",
+        "expenses_header": "Ihre monatlichen Ausgaben",
+        "curr_expenses": "Aktuelle monatliche Ausgaben",
+        "official_cpi": "Offizielle Inflation (VPI)",
+        "personal_cpi": "Persönliche Inflation",
+        "vs_official": "ggü. offizieller Rate",
+        "chart_title": "📈 Prognose der Ausgabenentwicklung",
+        "your_rate": "Mit persönlicher Inflation",
+        "off_rate": "Mit offizieller Inflation",
+        "time_horizon": "Zeithorizont",
+        "monthly_expenses": "Monatliche Ausgaben",
+        "table_title": "📊 Ausgabenstruktur",
+        "col_category": "Kategorie",
+        "col_amount": "Betrag",
+        "col_share": "Anteil",
+        "col_rate": "Kategorie-Inflation",
+        "now": "Jetzt",
+        "year": "Jahr",
+        "years": "Jahre",
+        "inflation": "Inflation",
+    },
+    "ja": {
+        "title": "🛡️ インフレ・シールド",
+        "subtitle": "個人インフレ率計算ツール",
+        "desc": "実際の日常の支出に基づいて、あなた個人のインフレ率を計算します。",
+        "settings": "⚙️ 設定",
+        "select_country": "国を選択:",
+        "select_lang": "言語を選択:",
+        "expenses_header": "毎月の支出",
+        "curr_expenses": "現在の月間支出",
+        "official_cpi": "公式インフレ率 (CPI)",
+        "personal_cpi": "個人インフレ率",
+        "vs_official": "公式比",
+        "chart_title": "📈 支出増加予測",
+        "your_rate": "個人インフレ率を適用",
+        "off_rate": "公式インフレ率を適用",
+        "time_horizon": "タイムホライズン",
+        "monthly_expenses": "月間支出",
+        "table_title": "📊 支出の内訳",
+        "col_category": "カテゴリー",
+        "col_amount": "金額",
+        "col_share": "割合",
+        "col_rate": "カテゴリー別インフレ率",
+        "now": "現在",
+        "year": "年後",
+        "years": "年後",
+        "inflation": "インフレ率",
+    },
+}
 
 
-# Загрузка данных из categories.json (без кэширования для динамических обновлений)
 def load_data():
     with open("categories.json", "r", encoding="utf-8") as f:
         return json.load(f)
@@ -24,48 +101,61 @@ def load_data():
 data = load_data()
 countries = data.get("countries", {})
 
-# Переключатель страны в боковой панели
-st.sidebar.header("⚙️ Настройки")
+# Sidebar Settings
+st.sidebar.header("⚙️ Settings")
 
+# Language Selection
+lang_options = {"en": "English", "de": "Deutsch", "ja": "日本語"}
+selected_lang = st.sidebar.selectbox(
+    "Language / Sprache / 言語:",
+    options=list(lang_options.keys()),
+    format_func=lambda x: lang_options[x],
+)
+
+t = I18N[selected_lang]
+
+# Main Title & Subtitle
+st.title(t["title"])
+st.subheader(t["subtitle"])
+st.write(t["desc"])
+
+# Country Selection
 country_options = {
-    code: info["name"] for code, info in countries.items()
+    code: info["name"][selected_lang] for code, info in countries.items()
 }
 selected_country_code = st.sidebar.selectbox(
-    "Выберите страну:",
+    t["select_country"],
     options=list(country_options.keys()),
     format_func=lambda x: country_options[x],
 )
 
-# Данные по выбранной стране
 current_country = countries[selected_country_code]
 currency_symbol = current_country.get("currency_symbol", "$")
 official_cpi = float(current_country.get("official_cpi", 0.0))
 categories = current_country.get("categories", [])
 
 st.sidebar.markdown("---")
-st.sidebar.header(f"Ваши расходы ({currency_symbol})")
+st.sidebar.header(f"{t['expenses_header']} ({currency_symbol})")
 
 user_expenses = {}
 total_current_monthly = 0.0
 weighted_inflation_sum = 0.0
 
-# Форма ввода трат в боковой панели
+# Expense Inputs
 for cat in categories:
     cat_id = cat["id"]
-    cat_name = cat["name"]
+    cat_name = cat["name"][selected_lang]
     default_val = float(cat["default_amount"])
     rate = float(cat["inflation_rate"])
 
-    # Динамический шаг зависит от валюты (для йены больше)
     step_val = 1000.0 if currency_symbol == "¥" else 50.0
 
-    # Поле ввода для пользователя
     amount = st.sidebar.number_input(
-        f"{cat_name} (Инфляция ~{rate}%)",
+        f"{cat_name} ({t['inflation']} ~{rate}%)",
         min_value=0.0,
         value=default_val,
         step=step_val,
-        key=f"{selected_country_code}_{cat_id}",
+        key=f"{selected_lang}_{selected_country_code}_{cat_id}",
     )
 
     user_expenses[cat_id] = {
@@ -77,7 +167,7 @@ for cat in categories:
     total_current_monthly += amount
     weighted_inflation_sum += amount * (rate / 100.0)
 
-# Расчет персональной инфляции
+# Personal Inflation Calculation
 if total_current_monthly > 0:
     personal_inflation_rate = (
         weighted_inflation_sum / total_current_monthly
@@ -85,85 +175,91 @@ if total_current_monthly > 0:
 else:
     personal_inflation_rate = 0.0
 
-# Вывод метрик
+# Display Metrics
 col1, col2, col3 = st.columns(3)
 
 with col1:
     st.metric(
-        label="Текущие расходы в месяц",
+        label=t["curr_expenses"],
         value=f"{total_current_monthly:,.0f} {currency_symbol}".replace(
             ",", " "
         ),
     )
 
 with col2:
-    st.metric(
-        label="Официальная инфляция (ИПЦ)", value=f"{official_cpi:.1f}%"
-    )
+    st.metric(label=t["official_cpi"], value=f"{official_cpi:.1f}%")
 
 with col3:
     diff = personal_inflation_rate - official_cpi
     st.metric(
-        label="Ваша персональная инфляция",
+        label=t["personal_cpi"],
         value=f"{personal_inflation_rate:.1f}%",
-        delta=f"{diff:+.1f}% к официальной",
+        delta=f"{diff:+.1f}% {t['vs_official']}",
         delta_color="inverse",
     )
 
 st.divider()
 
-# Прогноз трат на 1, 3, 5 лет
+# Future Projections (1, 3, 5 years)
 years = [0, 1, 3, 5]
 future_expenses_personal = []
 future_expenses_official = []
 
 for y in years:
-    # По персональной инфляции
     p_val = total_current_monthly * (
         (1 + personal_inflation_rate / 100.0) ** y
     )
     future_expenses_personal.append(p_val)
 
-    # По официальной инфляции
     o_val = total_current_monthly * ((1 + official_cpi / 100.0) ** y)
     future_expenses_official.append(o_val)
 
-# Построение графика
-st.subheader("📈 Прогноз роста ваших расходов")
+# Chart labels
+x_labels = []
+for y in years:
+    if y == 0:
+        x_labels.append(t["now"])
+    elif y == 1:
+        x_labels.append(f"1 {t['year']}")
+    else:
+        x_labels.append(f"{y} {t['years']}")
+
+# Render Plotly Chart
+st.subheader(t["chart_title"])
 
 fig = go.Figure()
 
 fig.add_trace(
     go.Scatter(
-        x=[f"{y} год" if y != 0 else "Сейчас" for y in years],
+        x=x_labels,
         y=future_expenses_personal,
         mode="lines+markers",
-        name="С учетом Вашей инфляции",
+        name=t["your_rate"],
         line=dict(color="#FF4B4B", width=3),
     )
 )
 
 fig.add_trace(
     go.Scatter(
-        x=[f"{y} год" if y != 0 else "Сейчас" for y in years],
+        x=x_labels,
         y=future_expenses_official,
         mode="lines+markers",
-        name="С учетом Официальной инфляции",
+        name=t["off_rate"],
         line=dict(color="#0068C9", width=3),
     )
 )
 
 fig.update_layout(
-    xaxis_title="Временной горизонт",
-    yaxis_title=f"Расходы в месяц ({currency_symbol})",
+    xaxis_title=t["time_horizon"],
+    yaxis_title=f"{t['monthly_expenses']} ({currency_symbol})",
     hovermode="x unified",
     margin=dict(l=20, r=20, t=30, b=20),
 )
 
 st.plotly_chart(fig, use_container_width=True)
 
-# Таблица развертки
-st.subheader("📊 Структура ваших трат")
+# Breakdown Table
+st.subheader(t["table_title"])
 breakdown_data = []
 for cat_id, info in user_expenses.items():
     if total_current_monthly > 0:
@@ -172,12 +268,12 @@ for cat_id, info in user_expenses.items():
         share = 0
     breakdown_data.append(
         {
-            "Категория": info["name"],
-            f"Сумма ({currency_symbol})": f"{info['amount']:,.0f}".replace(
+            t["col_category"]: info["name"],
+            f"{t['col_amount']} ({currency_symbol})": f"{info['amount']:,.0f}".replace(
                 ",", " "
             ),
-            "Доля в бюджете": f"{share:.1f}%",
-            "Инфляция категории": f"{info['rate']}%",
+            t["col_share"]: f"{share:.1f}%",
+            t["col_rate"]: f"{info['rate']}%",
         }
     )
 
