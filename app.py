@@ -200,8 +200,8 @@ with col3:
 
 st.divider()
 
-# Future Projections (1, 3, 5 years)
-years = [0, 1, 3, 5]
+# Future Projections (1, 2, 3, 4, 5 years)
+years = [0, 1, 2, 3, 4, 5]
 future_expenses_personal = []
 future_expenses_official = []
 
