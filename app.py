@@ -148,7 +148,7 @@ for cat in categories:
     default_val = float(cat["default_amount"])
     rate = float(cat["inflation_rate"])
 
-    step_val = 1000.0 if currency_symbol == "¥" else 50.0
+    step_val = 1
 
     amount = st.sidebar.number_input(
         f"{cat_name} ({t['inflation']} ~{rate}%)",
