@@ -4,16 +4,16 @@ import streamlit as st
 
 # Page configuration
 st.set_page_config(
-    page_title="Inflation Shield", page_icon="🛡️", layout="wide"
+    page_title="Inflation Shield", layout="wide"
 )
 
 # Translations dictionary
 I18N = {
     "en": {
-        "title": "🛡️ Inflation Shield",
+        "title": "Inflation Shield",
         "subtitle": "Personal Inflation Calculator",
         "desc": "Calculate your personal inflation rate based on your actual daily expenses.",
-        "settings": "⚙️ Settings",
+        "settings": "Settings",
         "select_country": "Select Country:",
         "select_lang": "Select Language:",
         "expenses_header": "Your Monthly Expenses",
@@ -21,12 +21,12 @@ I18N = {
         "official_cpi": "Official Inflation (CPI)",
         "personal_cpi": "Personal Inflation",
         "vs_official": "vs Official",
-        "chart_title": "📈 Expense Growth Forecast",
+        "chart_title": "Expense Growth Forecast",
         "your_rate": "With Personal Inflation",
         "off_rate": "With Official Inflation",
         "time_horizon": "Time Horizon",
         "monthly_expenses": "Monthly Expenses",
-        "table_title": "📊 Expense Breakdown",
+        "table_title": "Expense Breakdown",
         "col_category": "Category",
         "col_amount": "Amount",
         "col_share": "Share",
@@ -37,10 +37,10 @@ I18N = {
         "inflation": "Inflation",
     },
     "de": {
-        "title": "🛡️ Inflation Shield",
+        "title": "Inflation Shield",
         "subtitle": "Persönlicher Inflationsrechner",
         "desc": "Berechnen Sie Ihre persönliche Inflationsrate basierend auf Ihren tatsächlichen Ausgaben.",
-        "settings": "⚙️ Einstellungen",
+        "settings": "Einstellungen",
         "select_country": "Land auswählen:",
         "select_lang": "Sprache auswählen:",
         "expenses_header": "Ihre monatlichen Ausgaben",
@@ -48,12 +48,12 @@ I18N = {
         "official_cpi": "Offizielle Inflation (VPI)",
         "personal_cpi": "Persönliche Inflation",
         "vs_official": "ggü. offizieller Rate",
-        "chart_title": "📈 Prognose der Ausgabenentwicklung",
+        "chart_title": "Prognose der Ausgabenentwicklung",
         "your_rate": "Mit persönlicher Inflation",
         "off_rate": "Mit offizieller Inflation",
         "time_horizon": "Zeithorizont",
         "monthly_expenses": "Monatliche Ausgaben",
-        "table_title": "📊 Ausgabenstruktur",
+        "table_title": "Ausgabenstruktur",
         "col_category": "Kategorie",
         "col_amount": "Betrag",
         "col_share": "Anteil",
@@ -64,10 +64,10 @@ I18N = {
         "inflation": "Inflation",
     },
     "ja": {
-        "title": "🛡️ インフレ・シールド",
+        "title": "インフレ・シールド",
         "subtitle": "個人インフレ率計算ツール",
         "desc": "実際の日常の支出に基づいて、あなた個人のインフレ率を計算します。",
-        "settings": "⚙️ 設定",
+        "settings": "設定",
         "select_country": "国を選択:",
         "select_lang": "言語を選択:",
         "expenses_header": "毎月の支出",
@@ -75,12 +75,12 @@ I18N = {
         "official_cpi": "公式インフレ率 (CPI)",
         "personal_cpi": "個人インフレ率",
         "vs_official": "公式比",
-        "chart_title": "📈 支出増加予測",
+        "chart_title": "支出増加予測",
         "your_rate": "個人インフレ率を適用",
         "off_rate": "公式インフレ率を適用",
         "time_horizon": "タイムホライズン",
         "monthly_expenses": "月間支出",
-        "table_title": "📊 支出の内訳",
+        "table_title": "支出の内訳",
         "col_category": "カテゴリー",
         "col_amount": "金額",
         "col_share": "割合",
@@ -102,7 +102,7 @@ data = load_data()
 countries = data.get("countries", {})
 
 # Sidebar Settings
-st.sidebar.header("⚙️ Settings")
+st.sidebar.header("Settings")
 
 # Language Selection
 lang_options = {"en": "English", "de": "Deutsch", "ja": "日本語"}
@@ -200,8 +200,8 @@ with col3:
 
 st.divider()
 
-# Future Projections (1, 3, 5 years)
-years = [0, 1, 3, 5]
+# Future Projections (1, 2, 3, 4, 5 years)
+years = [0, 1, 2, 3, 4, 5]
 future_expenses_personal = []
 future_expenses_official = []
 
