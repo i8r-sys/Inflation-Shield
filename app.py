@@ -148,7 +148,7 @@ for cat in categories:
     default_val = float(cat["default_amount"])
     rate = float(cat["inflation_rate"])
 
-    step_val = 1
+    step_val = 1.00
 
     amount = st.sidebar.number_input(
         f"{cat_name} ({t['inflation']} ~{rate}%)",
