@@ -125,7 +125,7 @@ fig.add_trace(
         y=future_expenses_official,
         mode="lines+markers",
         name="С учетом Официальной инфляции",
-        line=dict(color="#0068C9", width=2, dash="dash"),
+        line=dict(color="#0068C9", width=3),
     )
 )
 
