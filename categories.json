@@ -1,150 +1,246 @@
 {
   "countries": {
     "USA": {
-      "name": "США",
+      "name": {
+        "en": "United States",
+        "de": "Vereinigte Staaten",
+        "ja": "アメリカ合衆国"
+      },
       "currency_code": "USD",
       "currency_symbol": "$",
       "official_cpi": 2.7,
       "categories": [
         {
           "id": "bus",
-          "name": "Общественный транспорт",
+          "name": {
+            "en": "Public Transport",
+            "de": "Öffentlicher Verkehr",
+            "ja": "公共交通機関"
+          },
           "inflation_rate": 3.1,
           "default_amount": 0
         },
         {
           "id": "food",
-          "name": "Еда и продукты",
+          "name": {
+            "en": "Food & Groceries",
+            "de": "Lebensmittel",
+            "ja": "食料品"
+          },
           "inflation_rate": 2.2,
           "default_amount": 0
         },
         {
           "id": "entertainment",
-          "name": "Развлечения",
+          "name": {
+            "en": "Entertainment",
+            "de": "Unterhaltung",
+            "ja": "娯楽"
+          },
           "inflation_rate": 4.0,
           "default_amount": 0
         },
         {
           "id": "utilities",
-          "name": "Коммунальные услуги (ЖКХ)",
+          "name": {
+            "en": "Utilities",
+            "de": "Nebenkosten (Strom/Wasser)",
+            "ja": "光熱費"
+          },
           "inflation_rate": 3.8,
           "default_amount": 0
         },
         {
           "id": "rent",
-          "name": "Аренда жилья",
+          "name": {
+            "en": "Rent",
+            "de": "Miete",
+            "ja": "家賃"
+          },
           "inflation_rate": 4.5,
           "default_amount": 0
         },
         {
           "id": "home_internet",
-          "name": "Домашний интернет",
+          "name": {
+            "en": "Home Internet",
+            "de": "Heim-Internet",
+            "ja": "自宅のインターネット"
+          },
           "inflation_rate": 1.5,
           "default_amount": 0
         },
         {
           "id": "mobile_internet",
-          "name": "Мобильный интернет",
+          "name": {
+            "en": "Mobile Data",
+            "de": "Mobilfunk",
+            "ja": "携帯データ通信"
+          },
           "inflation_rate": 1.2,
           "default_amount": 0
         }
       ]
     },
     "DEU": {
-      "name": "Германия",
+      "name": {
+        "en": "Germany",
+        "de": "Deutschland",
+        "ja": "ドイツ"
+      },
       "currency_code": "EUR",
       "currency_symbol": "€",
       "official_cpi": 2.2,
       "categories": [
         {
           "id": "bus",
-          "name": "Общественный транспорт",
+          "name": {
+            "en": "Public Transport",
+            "de": "Öffentlicher Verkehr",
+            "ja": "公共交通機関"
+          },
           "inflation_rate": 2.5,
           "default_amount": 0
         },
         {
           "id": "food",
-          "name": "Еда и продукты",
+          "name": {
+            "en": "Food & Groceries",
+            "de": "Lebensmittel",
+            "ja": "食料品"
+          },
           "inflation_rate": 1.8,
           "default_amount": 0
         },
         {
           "id": "entertainment",
-          "name": "Развлечения",
+          "name": {
+            "en": "Entertainment",
+            "de": "Unterhaltung",
+            "ja": "娯楽"
+          },
           "inflation_rate": 3.5,
           "default_amount": 0
         },
         {
           "id": "utilities",
-          "name": "Коммунальные услуги (ЖКХ)",
+          "name": {
+            "en": "Utilities",
+            "de": "Nebenkosten",
+            "ja": "光熱費"
+          },
           "inflation_rate": -1.2,
           "default_amount": 0
         },
         {
           "id": "rent",
-          "name": "Аренда жилья",
+          "name": {
+            "en": "Rent",
+            "de": "Miete",
+            "ja": "家賃"
+          },
           "inflation_rate": 3.0,
           "default_amount": 0
         },
         {
           "id": "home_internet",
-          "name": "Домашний интернет",
+          "name": {
+            "en": "Home Internet",
+            "de": "Heim-Internet",
+            "ja": "自宅のインターネット"
+          },
           "inflation_rate": 1.0,
           "default_amount": 0
         },
         {
           "id": "mobile_internet",
-          "name": "Мобильный интернет",
+          "name": {
+            "en": "Mobile Data",
+            "de": "Mobilfunk",
+            "ja": "携帯データ通信"
+          },
           "inflation_rate": 0.8,
           "default_amount": 0
         }
       ]
     },
     "JPN": {
-      "name": "Япония",
+      "name": {
+        "en": "Japan",
+        "de": "Japan",
+        "ja": "日本"
+      },
       "currency_code": "JPY",
       "currency_symbol": "¥",
       "official_cpi": 2.8,
       "categories": [
         {
           "id": "bus",
-          "name": "Общественный транспорт",
+          "name": {
+            "en": "Public Transport",
+            "de": "Öffentlicher Verkehr",
+            "ja": "公共交通機関"
+          },
           "inflation_rate": 1.1,
           "default_amount": 0
         },
         {
           "id": "food",
-          "name": "Еда и продукты",
+          "name": {
+            "en": "Food & Groceries",
+            "de": "Lebensmittel",
+            "ja": "食料品"
+          },
           "inflation_rate": 4.2,
           "default_amount": 0
         },
         {
           "id": "entertainment",
-          "name": "Развлечения",
+          "name": {
+            "en": "Entertainment",
+            "de": "Unterhaltung",
+            "ja": "娯楽"
+          },
           "inflation_rate": 2.0,
           "default_amount": 0
         },
         {
           "id": "utilities",
-          "name": "Коммунальные услуги (ЖКХ)",
+          "name": {
+            "en": "Utilities",
+            "de": "Nebenkosten",
+            "ja": "光熱費"
+          },
           "inflation_rate": 5.1,
           "default_amount": 0
         },
         {
           "id": "rent",
-          "name": "Аренда жилья",
+          "name": {
+            "en": "Rent",
+            "de": "Miete",
+            "ja": "家賃"
+          },
           "inflation_rate": 0.5,
           "default_amount": 0
         },
         {
           "id": "home_internet",
-          "name": "Домашний интернет",
+          "name": {
+            "en": "Home Internet",
+            "de": "Heim-Internet",
+            "ja": "自宅のインターネット"
+          },
           "inflation_rate": 0.3,
           "default_amount": 0
         },
         {
           "id": "mobile_internet",
-          "name": "Мобильный интернет",
+          "name": {
+            "en": "Mobile Data",
+            "de": "Mobilfunk",
+            "ja": "携帯データ通信"
+          },
           "inflation_rate": 0.2,
           "default_amount": 0
         }
