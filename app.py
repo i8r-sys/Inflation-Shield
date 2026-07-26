@@ -101,7 +101,6 @@ def load_data():
 data = load_data()
 countries = data.get("countries", {})
 
-# Sidebar Settings
 st.sidebar.header("Settings")
 
 # Language Selection
@@ -167,7 +166,7 @@ for cat in categories:
     total_current_monthly += amount
     weighted_inflation_sum += amount * (rate / 100.0)
 
-# Personal Inflation Calculation
+# Inflation Calculation
 if total_current_monthly > 0:
     personal_inflation_rate = (
         weighted_inflation_sum / total_current_monthly
@@ -200,7 +199,7 @@ with col3:
 
 st.divider()
 
-# Future Projections (1, 2, 3, 4, 5 years)
+# Future Projections
 years = [0, 1, 2, 3, 4, 5]
 future_expenses_personal = []
 future_expenses_official = []
