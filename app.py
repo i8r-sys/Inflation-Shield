@@ -3,7 +3,9 @@ import plotly.graph_objects as go
 import streamlit as st
 
 # Page configuration
-st.set_page_config(page_title="Inflation Shield", layout="wide")
+st.set_page_config(
+    page_title="Inflation Shield", layout="wide"
+)
 
 # Translations dictionary
 I18N = {
@@ -197,8 +199,8 @@ with col3:
 
 st.divider()
 
-# Future Projections (1 to 5 years)
-years = [1, 2, 3, 4, 5]
+# Future Projections
+years = [0, 1, 2, 3, 4, 5]
 future_expenses_personal = []
 future_expenses_official = []
 
@@ -214,48 +216,39 @@ for y in years:
 # Chart labels
 x_labels = []
 for y in years:
-    if y == 1:
+    if y == 0:
+        x_labels.append(t["now"])
+    elif y == 1:
         x_labels.append(f"1 {t['year']}")
     else:
         x_labels.append(f"{y} {t['years']}")
 
-# Render Plotly Chart (Grouped Bar Chart with 10 Columns: 2 per year)
+# Render Plotly Chart
 st.subheader(t["chart_title"])
 
 fig = go.Figure()
 
-# Official Inflation Bars
 fig.add_trace(
-    go.Bar(
+    go.Scatter(
         x=x_labels,
-        y=future_expenses_official,
-        name=t["off_rate"],
-        marker_color="#0068C9",
-        text=[
-            f"{val:,.0f} {currency_symbol}".replace(",", " ")
-            for val in future_expenses_official
-        ],
-        textposition="auto",
+        y=future_expenses_personal,
+        mode="lines+markers",
+        name=t["your_rate"],
+        line=dict(color="#FF4B4B", width=3),
     )
 )
 
-# Personal Inflation Bars
 fig.add_trace(
-    go.Bar(
+    go.Scatter(
         x=x_labels,
-        y=future_expenses_personal,
-        name=t["your_rate"],
-        marker_color="#FF4B4B",
-        text=[
-            f"{val:,.0f} {currency_symbol}".replace(",", " ")
-            for val in future_expenses_personal
-        ],
-        textposition="auto",
+        y=future_expenses_official,
+        mode="lines+markers",
+        name=t["off_rate"],
+        line=dict(color="#0068C9", width=3),
     )
 )
 
 fig.update_layout(
-    barmode="group",
     xaxis_title=t["time_horizon"],
     yaxis_title=f"{t['monthly_expenses']} ({currency_symbol})",
     hovermode="x unified",
