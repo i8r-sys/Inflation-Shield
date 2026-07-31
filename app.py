@@ -245,8 +245,8 @@ fig.add_trace(
         y=future_expenses_official,
         mode="lines+markers",
         name=t["off_rate"],
-        line=dict(color="#6366F1", width=3, dash="dash"),
-        marker=dict(size=6),
+        line=dict(color="#6366F1", width=4),
+        marker=dict(size=8),
     )
 )
 
