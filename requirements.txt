@@ -1,2 +1,3 @@
 streamlit
 plotly
+starlette<0.38.0
